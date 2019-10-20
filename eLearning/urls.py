@@ -18,6 +18,7 @@ urlpatterns = [
 	## Departments
 	path('dept/activity/', views.deptActivity, name='deptActivity'),
 	path('dept/editTut<int:tut_id>/', views.editTutdept, name='editTutdept'),
+	path('dept/viewCourse<int:tut_id>/', views.viewCourseDept, name='viewCourseDept'),
 
 
 	## Students

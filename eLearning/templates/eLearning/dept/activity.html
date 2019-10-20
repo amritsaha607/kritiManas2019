@@ -96,6 +96,8 @@
 	      	{{ course.series_title }} 
 	      	<div>
 	      		<a href="{% url 'eLearning:editTutdept' course.id %}"> <button class="btn btn-outline-primary"> Edit Course </button> </a>
+
+	      		<a href="{% url 'eLearning:viewCourseDept' course.id %}"> <button class="btn btn-outline-success"> View Course </button> </a>
 	      	</div>
 	      </p>
 	      <footer class="blockquote-footer">Last updated on <cite title="Source Title"> {{ course.last_update }} </cite></footer>

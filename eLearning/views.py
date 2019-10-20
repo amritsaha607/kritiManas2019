@@ -300,6 +300,40 @@ def deptActivity(request):
 
 	return render(request, 'eLearning/dept/activity.html', {'dept': dept, 'courses': courses, 'form': form})
 
+
+
+## View Dept Course
+@dept_login_required
+def viewCourseDept(request, tut_id):
+	dept = get_dept(request)
+	tut = CourseTutorial.objects.get(id=tut_id)
+
+	if request.method=='GET':
+		if 'paramvid' in request.GET:
+			video_id = int(request.GET['paramvid'])
+			vid = Video.objects.get(id=video_id)
+			isvideo = True
+			if not vid.link=="":
+				isvideo = False
+			return render(request, 'eLearning/dept/viewCourse.html', {'tut': tut, 'vid': vid, 'isvideo': isvideo})
+		if 'paramMet' in request.GET:
+			met_id = int(request.GET['paramMet'])
+			met = Material.objects.get(id=met_id)
+			return render(request, 'eLearning/dept/viewCourse.html', {'tut': tut, 'met_id': met_id, 'met': met})
+		else:
+			whatToClick = None
+			if not tut.videos.all().count()==0:
+				whatToClick = "Video"
+			elif not tut.materials.all().count()==0:
+				whatToClick = "Met"
+			return render(request, 'eLearning/dept/viewCourse.html', {'tut': tut, 'whatToClick': whatToClick})
+
+	return render(request, 'eLearning/dept/viewCourse.html', {'tut': tut, 'dept': dept})
+
+
+
+
+
 ## Edit Tutorial by Club
 @dept_login_required
 def editTutdept(request, tut_id):
