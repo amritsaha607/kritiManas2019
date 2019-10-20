@@ -186,7 +186,6 @@ def viewCourse(request, tut_id):
 
 
 
-	return render(request,'eLearning/club/showCourse.html', {'club': club, 'course': course})
 
 ## Edit Tutorial by Club
 @club_login_required
