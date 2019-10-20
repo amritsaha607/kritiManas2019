@@ -19,3 +19,15 @@ Student can view any course anytime.
 ##### Materials 
 
 Any student can upload amy material at anytime. Others can view and download the uploaded documents.
+
+
+## Working with the portal
+To run the application, run the command : "python manage.py runserver"
+To create your own admin account, run the command "python manage.py createsuperuser"
+We've made some dummy database inside the application. Go to "localhost:8000/admin/"
+Login through your newly created admin account and you can access the whole database, including username and passwords of all Types of Users.
+
+## We recommend using the following user as they contain most of the database
+Student : username - "s1", password - "s1"
+Club : username - "4i Lab", password - "4i Lab"
+Department : username - "cse", password - "cse"
