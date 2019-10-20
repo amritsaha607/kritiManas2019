@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <title>IITG E-Learning</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"-->
+  <link rel="stylesheet" href="{% static 'utils/bootstrap.min.css' %}">
+  <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script-->
+  <script src="{% static 'utils/jquery.min.js' %}"></script>
+  <!--script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script-->
+  <script src="{% static 'utils/popper.min.js' %}"></script>
+  <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script-->
+  <script src="{% static 'utils/bootstrap.min.js' %}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    body{
+      background-image: url("{% static 'images/background5.jpg' %}");
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      transition: background 1s linear;
+    }
+    body:after{
+      width:100%;
+      content:'';
+      display:block;
+      position:fixed;
+      top:0;
+      left:0;
+      height:100%;
+      //background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+      z-index: -1;
+    }
+    @media only screen and (max-width: 1000px) {
+      .display-3{
+        font-size: 40px;
+      }
+      .display-4{
+        font-size: 30px;
+      }
+    }
+    @media only screen and (max-width: 700px) {
+      .display-3{
+        font-size: 35px;
+      }
+      .display-4{
+        font-size: 25px;
+      }
+    }
+    @media only screen and (max-width: 500px) {
+      .display-3{
+        font-size: 30px;
+      }
+      .display-4{
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<style>
+  .myNav{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+</style>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light myNav">
+  <a class="navbar-brand" href="#">Learn Smart</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'eLearning:home' %}"><i class='fa fa-home' aria-hidden="true"></i> Home </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'eLearning:register' %}"><i class='fa fa-home' aria-hidden="true"></i> Register </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'eLearning:login' %}"><i class='fa fa-sign-in' aria-hidden="true"></i> Login</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      E Learning
+    </span>
+  </div>
+</nav>
+{% block body %}{% endblock %}
+</body>

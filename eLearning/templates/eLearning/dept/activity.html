@@ -1,0 +1,108 @@
+{% extends 'baseDepartment.html' %}
+
+
+{% block body %}
+<style>
+	{
+		box-sizing: border-box;
+	}
+	.card{
+		margin: 1%;
+		transition: all 0.5s;
+	}
+	.card:hover{
+		z-index: 1;
+		box-shadow: 2px 8px 8px rgba(120, 120, 120, 0.8);
+		transition: all 0.5s;
+	}
+	.star{
+		float: right;
+	}
+</style>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Create New Tutorial Series</h5>
+        <hr class='my-4'>
+
+
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<form method='post'>
+      		{% csrf_token %}
+        	{{ form.as_p }}
+        	<b>Can't find your course ? </b>
+        	<i>Type your course here</i> <input type='text' name='course_code'>
+        	<br>
+        	<button class='btn btn-success'> Done </button>
+        	<script>
+        			$('#id_course').removeAttr('required');
+        	</script>
+        </form>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="jumbotron">
+  <h1 class="display-4">Welcome {{ dept.name }} </h1>
+  <hr class="my-4">
+  <p class="lead">Here you can see your recent activities and edit them.</p>
+  <p class="lead"> <button class="btn btn-outline-success modalBtn" data-toggle="modal" data-target=".bd-example-modal-lg" > Create New Tutorial Series </button> </p>
+</div>
+
+<div class='container'>
+	{% for course in courses %}
+	<div class="card">
+	  <div class="card-header">
+	  	{% if course.course.name %}
+	    {{ course.course.name }}
+	    {% else %}
+	    <i>{{ course.course.code }}</i>
+	    {% endif %}
+
+	    {% if course.rating_count == 0 %}
+	    	<span class="star"> <i>No ratings yet</i> </span>
+	    {% else %}
+		    <span class="star"><i class="fa fa-star star5_{{course.id}}"></i></span>
+		    <span class="star"><i class="fa fa-star star4_{{course.id}}"></i></span>
+		    <span class="star"><i class="fa fa-star star3_{{course.id}}"></i></span>
+		    <span class="star"><i class="fa fa-star star2_{{course.id}}"></i></span>
+		    <span class="star"><i class="fa fa-star star1_{{course.id}}"></i></span>
+
+		    <script>
+		    	var curr_rating = parseInt("{{course.tot_rating}}")/parseInt("{{course.rating_count}}");
+		    	console.log(curr_rating);
+		    	for(var i=1; i<=curr_rating; i++){
+		    		$(".star"+i.toString()+"_{{course.id}}").css("color", "yellow");
+		    	}
+		    </script>
+	    {% endif %}
+	  </div>
+	  <div class="card-body">
+	    <blockquote class="blockquote mb-0">
+	      <p> 
+	      	{{ course.series_title }} 
+	      	<div>
+	      		<a href="{% url 'eLearning:editTutdept' course.id %}"> <button class="btn btn-outline-primary"> Edit Course </button> </a>
+	      	</div>
+	      </p>
+	      <footer class="blockquote-footer">Last updated on <cite title="Source Title"> {{ course.last_update }} </cite></footer>
+	    </blockquote>
+	  </div>
+	</div>
+	{% endfor %}
+</div>
+
+{% endblock %}

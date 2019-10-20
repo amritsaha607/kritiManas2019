@@ -1,0 +1,62 @@
+{% extends 'baseStudent.html' %}
+
+{% block body %}
+
+<style>
+	.container{
+		margin: 2%;
+	}
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+			<a class="nav-link" href="#" style='background-color: black; color: white;'> Videos </a>
+			<nav class="navbar bg-light">
+			  <ul class="navbar-nav">
+			  	{% for item in tut.videos.all %}
+			    <li class="nav-item">
+			      <a class="nav-link" href="{% url 'eLearning:showTut' tut.id %}?paramvideo={{item.id}}"> {{ item.title }} </a>
+			    </li>
+			    {% endfor %}
+				</ul>
+			</nav>
+
+			<a class="nav-link" href="#" style='background-color: black; color: white;'> Materials </a>
+			<nav class="navbar bg-light">
+			  <ul class="navbar-nav">
+				
+			    {% for item in tut.materials.all %}
+			    <li class="nav-item">
+			      <a class="nav-link" href="{% url 'eLearning:showTut' tut.id %}?paramMet={{item.id}}"> {{ item.name }} </a>
+			    </li>
+			    {% endfor %}
+			  </ul>
+			</nav>
+		</div>
+		<div class='col-lg-9 col-md-9 col-sm-12 col-xs-12'>
+			{% if vid %}
+			<div>
+				{% if isvideo %}
+				<iframe width="420" height="315" src="{{ vid.video.url }}"></iframe>
+				{% else %}
+				<iframe width="420" height="315" src="{{ vid.link }}" id="toShow"></iframe>
+				<script>
+					var url= ("{{ vid.link }}").replace('watch?v=','embed/');
+					console.log(url);
+					$('#toShow').attr('src', url);
+				</script>
+				{% endif %}
+			</div>
+
+
+			{% else %}
+				<iframe width="420" height="315" src="{{ met.met.url }}" style="background-color: white; width: 100%; height: 100%;"></iframe>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}

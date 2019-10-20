@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<style>
+	
+	.card{
+		margin: 2%;
+		height: 100%;
+		color: white;
+	}
+	.myForm{
+		background-color: rgba(120, 120, 120, 0.6);
+		transition: all 0.5s;
+	}
+	.myForm input{
+		padding-left: 5%;
+		margin: auto;
+		width: 50%;
+		border-radius: 12px; 
+		border: none;
+		transition: all 0.5s;
+		border-bottom: 1px solid black;
+	}
+	.myForm input:focus{
+		outline: none;
+		width: 60%;
+		transition: width 0.5s;
+	}
+	.myForm label{
+		width: 20%;
+		margin-left: 10%;
+		float: left;
+	}
+
+	.myForm{
+		border-radius: 50%;
+		text-align: center;
+	}
+	.row{
+		margin-top: 2%;
+	}
+	@media screen and (max-width: 435px){
+		.myForm input{
+			width: 80%;
+		}
+	}
+	.myForm:hover{
+		box-shadow: 2px 8px 8px white;
+		transition: all 0.5s;
+	}
+</style>
+
+
+<div class="row">
+
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="formDivStudent">
+		<div class="card myForm">
+  			<div class="card-header">
+    			<p class="lead">Register (Student)</p>
+  			</div>
+  			<div class="card-body">
+  				<form method='post'>
+  					{% csrf_token %}
+	    			{{ formStudent.as_p }}
+					<button class='btn btn-primary' name='student'> Register </button>
+				</form>
+  			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="formDivClub">
+		<div class="card myForm">
+  			<div class="card-header">
+    			<p class="lead">Register (Club)</p>
+  			</div>
+  			<div class="card-body">
+  				<form method='post'>
+  					{% csrf_token %}
+	    			{{ formClub.as_p }}
+					<button class='btn btn-primary' name='club'> Register </button>
+				</form>
+  			</div>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,287 @@
+{% extends 'baseStudent.html' %}
+
+{% block body %}
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+<style>
+	.contribute{
+		max-width: 90%;
+		margin: auto;
+		padding: 2%;
+		background-color: lightgreen;
+		color: white;
+		border-radius: 2%;
+	}
+	.colorWhite{
+		color: white;
+		background-color: rgb(120, 120, 120);
+		transition: all 0.5s;
+	}
+	.sem_select, .dept_select, .type_select, .course_select{
+		cursor: pointer;
+	}
+	.in_sem, .in_dept, .in_type, .in_course{
+		display: inline-block;
+	}
+	.nodisplay{
+		display: none;
+	}
+	.custom-file{
+		margin-top: 5px;
+	}
+	select[name=sem], select[name=dept], select[name=course], select[name=doctype]{
+		margin: 1% 2% 1% 2%;
+		width: 90%;
+	}
+	form{
+		text-align: center;
+	}
+	.myText{
+		text-align: center;
+		font-size: 30px;
+		cursor: pointer;
+		color: rgba(120, 120, 120, 0.7);
+	}
+	.myText:hover{
+		color: rgb(120, 120, 120);
+	}
+</style>
+
+
+
+<button type="button" class="btn btn-primary modalBtn" data-toggle="modal" data-target=".bd-example-modal-lg" style="display: none;"></button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Upload Document</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method='post' enctype="multipart/form-data">
+    			{% csrf_token %}
+    			<input type='text' class='form-control' placeholder="Filename..." name='filename'>
+
+    			<div class="custom-file col-12">
+				  	<input type='file' name='newdoc' id='id_newdoc'>
+				    <label class="custom-file-label" for="id_newdoc">Choose file</label>
+				</div>
+
+    			<input type='text' class='form-control' placeholder="Add tags (Tags must be seperated by single space only)..." name='tags' style="margin-top: 5px;">
+
+
+    			<br><br>
+
+    			<div>
+    			<b class="sem_select">Please Select semester (if applicable) </b>&nbsp;&nbsp;&nbsp;
+    				<div class='in_sem'>
+
+    				{% for sem in all_sems %}
+	    				<label for='id_sem{{sem.id}}' class='semLabel{{sem.id}}' style='cursor: pointer;'> Semester {{ sem.sem }} </label>
+	    				<input type='checkbox' name='semNo' value="{{sem.id}}" id='id_sem{{sem.id}}' style='display: none;'> &nbsp;
+	       				<script>
+	    					$('.semLabel{{sem.id}}').on('click',function(){
+	    						$('.semLabel{{sem.id}}').toggleClass('colorWhite');
+	    					})
+	    				</script>
+	    			{% endfor %} 
+	    			</div>
+    			</div>
+
+    			<div>
+    			<b class="dept_select">Please Select department (if applicable) </b>&nbsp;&nbsp;&nbsp;
+    				<div class='in_dept'>
+	    			{% for dept in all_depts %}
+	    				<label for='id_dept{{dept.id}}' class='deptLabel{{dept.id}}' style='cursor: pointer;'> {{ dept.short_name }} </label>
+	    				<input type='checkbox' name='deptNo' value="{{dept.id}}" id='id_dept{{dept.id}}' style='display: none;'> &nbsp;&nbsp;&nbsp;
+	       				<script>
+	    					$('.deptLabel{{dept.id}}').on('click',function(){
+	    						$('.deptLabel{{dept.id}}').toggleClass('colorWhite');
+	    					})
+	    				</script>
+	    			{% endfor %}
+	    			</div>
+    			</div>
+
+
+    			<div>
+    			<b class="type_select">Please Select a Type </b>&nbsp;&nbsp;&nbsp;
+    				<div class='in_type'>
+	    			{% for type in all_types %}
+	    				<label for='id_type{{type.id}}' class='typeLabel{{type.id}} typeSpecialClass' style='cursor: pointer;'> {{ type.docType }} </label>
+	    				<input type='radio' name='typeNo' value="{{type.id}}" id='id_type{{type.id}}' style='display: none;'> &nbsp;&nbsp;&nbsp;
+	       				<script>
+	    					$('.typeLabel{{type.id}}').on('click', function(){
+	    						$('.typeSpecialClass').removeClass('colorWhite');
+	    						$('.typeLabel{{type.id}}').addClass('colorWhite');
+	    					})
+	    				</script>
+	    			{% endfor %}
+	    			</div>
+    			</div>
+
+
+    			<div>
+    			<b class="course_select">Please Select a Course (if applicable) </b>&nbsp;&nbsp;&nbsp;
+    				<div class='in_course'>
+	    			{% for course in all_courses %}
+	    				<label for='id_course{{course.id}}' class='courseLabel{{course.id}}' style='cursor: pointer;'> {{ course.code }} </label>
+	    				<input type='checkbox' name='courseNo' value="{{course.id}}" id='id_course{{course.id}}' style='display: none;'> &nbsp;&nbsp;&nbsp;
+	       				<script>
+	    					$('.courseLabel{{course.id}}').on('click',function(){
+	    						$('.courseLabel{{course.id}}').toggleClass('colorWhite');
+	    					})
+	    				</script>
+	    			{% endfor %}
+	    			</div>
+    			</div>
+
+
+    			<br><br>
+
+    			<hr class="my-4">
+
+    			
+
+
+    			<script>
+    				// $('.sem_select').on('click', function(){
+    				// 	$('.in_sem').toggleClass('nodisplay');
+    				// });
+    				// $('.dept_select').on('click', function(){
+    				// 	$('.in_dept').toggleClass('nodisplay');
+    				// });
+    				// $('.type_select').on('click', function(){
+    				// 	$('.in_type').toggleClass('nodisplay');
+    				// });
+    				// $('.course_select').on('click', function(){
+    				// 	$('.in_course').toggleClass('nodisplay');
+    				// });
+    			</script>
+
+    			<button class='btn btn-success' name='upload'>Upload</button>
+    		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron jumbotron-fluid">
+  	<div class="container">
+    	<h1 class="display-4">Help Others Grow by contributing materials !</h1>
+    	<hr class="my-4">
+    	<p class='lead'><button class='btn btn-outline-success' onclick="openModal()">Upload Doc here </button> 
+    	</p>
+    	<script>
+    		function openModal(){
+    			$('.modalBtn').click();
+    		}
+    	</script>
+    	
+  	</div>
+</div>
+
+
+<form method="post" class='myForm'>
+	<div class='row'>
+
+	{% csrf_token %}
+
+	<div class='col-lg-2 col-md-3 col-sm-4 col-xs-12'>
+	<select name='sem'>
+		<option value=""> ---- </option>
+		{% for sem in all_sems %}
+		<option value="{{ sem.id }}"> Semester {{ sem.sem }} </option>
+		{% endfor %}
+	</select>
+	</div>
+
+	<div class='col-lg-2 col-md-3 col-sm-4 col-xs-12'>
+	<select name='dept'>
+		<option value=""> ---- </option>
+		{% for dept in all_depts %}
+		<option value="{{ dept.id }}"> {{ dept.short_name }} </option>
+		{% endfor %}
+	</select>
+	</div>
+
+	<div class='col-lg-2 col-md-3 col-sm-4 col-xs-12'>
+	<select name='course'>
+		<option value=""> ---- </option>
+		{% for course in all_courses %}
+		<option value="{{ course.id }}"> {{ course.code }} </option>
+		{% endfor %}
+	</select>
+	</div>
+
+	<div class='col-lg-2 col-md-3 col-sm-4 col-xs-12'>
+	<select name='doctype'>
+		<option value=""> ---- </option>
+		{% for type in all_types %}
+		<option value="{{ type.id }}"> {{ type.docType }} </option>
+		{% endfor %}
+	</select>
+	</div>
+
+	<div class='col-lg-2 col-md-3 col-sm-4 col-xs-12'>
+
+	<input list="allTags" name="tag" placeholder="Tag.." class="form-control">
+	<datalist id="allTags">
+		{% for tag in all_tags %}
+	    <option value="{{ tag.name }}">
+	    {% endfor %}
+	</datalist>
+
+	</div>
+
+	
+
+	</div>
+
+	<button class='btn btn-outline-success' style="margin: 10px 0 10px 0;" name="filter"> <i class='fa fa-search'></i> &nbsp;Filter and Search </button>
+</form>
+
+<table class="table">
+	<thead class="thead-dark">
+	    <tr>
+	      	<th scope="col">Filename</th>
+	      	<th scope="col">Upload</th>
+	      	<th scope="col">Download</th>
+	    </tr>
+	</thead>
+	<tbody class='myTableBody'>
+	{% for doc in all_docs %}
+		<tr data-aos="fade-right" data-aos-anchor-placement="top-bottom">
+		    <th scope="row"> {{ doc.filename }} </th>
+		    <td> <i style="font-size: 12px;">{{ doc.uploaded_by }} | {{ doc.uploaded_at }}</i> </td>
+		    <td> <a href='{{ doc.file.url }}' download><i class="fa fa-download"></i></a> </td>
+		</tr>
+	{% endfor %}
+	</tbody>
+</table>
+
+
+
+
+
+<script>
+	AOS.init();
+</script>
+
+
+
+
+
+
+
+{% endblock %}

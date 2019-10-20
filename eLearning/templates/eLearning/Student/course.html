@@ -1,0 +1,181 @@
+{% extends 'baseStudent.html' %}
+
+{% block body %}
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<style>
+	{
+		box-sizing: border-box;
+	}
+	.card{
+		margin: 1%;
+		transition: all 0.5s;
+	}
+	.card:hover{
+		z-index: 1;
+		box-shadow: 2px 8px 8px rgba(120, 120, 120, 0.8);
+		transition: all 0.5s;
+	}
+	.star{
+		float: right;
+		cursor: pointer;
+	}
+	.hideIP{
+		display: none;
+	}
+
+
+</style>
+
+
+
+
+<div class="jumbotron">
+  <h1 class="display-4">Welcome {{ student.name }} </h1>
+  <hr class="my-4">
+  <p class="lead">Here you can see Recently Updated Courses.</p>
+  <form method="post">
+  	{% csrf_token %}
+  	<input list="allTags" name="tag" placeholder="Tag.." class="form-control" style="max-width: 200px;">
+  	<button class="btn btn-outline-primary" style="display: inline-block;"> <i class="fa fa-search"></i> Search </button>
+	<datalist id="allTags">
+		{% for tag in all_tags %}
+	    <option value="{{ tag.name }}">
+	    {% endfor %}
+	</datalist>
+	
+  </form>
+</div>
+
+<div class='container'>
+
+	{% if courses %}
+
+	{% for course in courses %}
+	<div class="card" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+	  <div class="card-header">
+	  	{% if course.course.name %}
+	    {{ course.course.name }}
+	    {% else %}
+	    <i>{{ course.course.code }}</i>
+	    {% endif %}
+
+	    <input type="radio" value="5_{{course.id}}" name="rating" class="hideIP" id="{{course.id}}_5">
+	    <span class="star star5_{{course.id}}"><i class="fa fa-star"></i></span>
+
+	    <input type="radio" value="4_{{course.id}}" name="rating" class="hideIP" id="{{course.id}}_4">
+	    <span class="star star4_{{course.id}}"><i class="fa fa-star"></i></span>
+	    
+	    <input type="radio" value="3_{{course.id}}" name="rating" class="hideIP" id="{{course.id}}_3">
+	    <span class="star star3_{{course.id}}"><i class="fa fa-star"></i></span>
+	    
+	    <input type="radio" value="2_{{course.id}}" name="rating" class="hideIP" id="{{course.id}}_2">
+	    <span class="star star2_{{course.id}}"><i class="fa fa-star"></i></span>
+
+	    <input type="radio" value="1_{{course.id}}" name="rating" class="hideIP" id="{{course.id}}_1">
+	    <span class="star star1_{{course.id}}"><i class="fa fa-star"></i></span>	    
+	    
+	    <script>
+	    	$('.star1_{{course.id}}').on('mouseover', function(){
+	    		$('#{{course.id}}_1').attr('checked', true);
+	    		$('.star1_{{course.id}}').css('color', 'yellow');
+	    	}).on('mouseout', function(){
+	    		$('#{{course.id}}_1').attr('checked', false);
+	    		$('.star1_{{course.id}}').css('color', 'black');
+	    	});
+
+	    	$('.star2_{{course.id}}').on('mouseover', function(){
+	    		$('#{{course.id}}_2').attr('checked', true);
+	    		for(var i=1; i<=2; i++){
+	    			$('.star' + i.toString() + '_{{course.id}}').css('color', 'yellow');
+	    		}
+	    	}).on('mouseout', function(){
+	    		$('#{{course.id}}_2').attr('checked', false);
+	    		for(var i=1; i<=2; i++){
+	    			$('.star' + i.toString() + '_{{course.id}}').css('color', 'black');
+	    		}
+	    	});
+
+	    	$('.star3_{{course.id}}').on('mouseover', function(){
+	    		$('#{{course.id}}_3').attr('checked', true);
+	    		for(var i=1; i<=3; i++){
+	    			$('.star' + i.toString() + '_{{course.id}}').css('color', 'yellow');
+	    		}
+	    	}).on('mouseout', function(){
+	    		$('#{{course.id}}_3').attr('checked', false);
+	    		for(var i=1; i<=3; i++){
+	    			$('.star' + i.toString() + '_{{course.id}}').css('color', 'black');
+	    		}
+	    	});
+
+	    	$('.star4_{{course.id}}').on('mouseover', function(){
+	    		$('#{{course.id}}_4').attr('checked', true);
+	    		for(var i=1; i<=4; i++){
+	    			$('.star' + i.toString() + '_{{course.id}}').css('color', 'yellow');
+	    		}
+	    	}).on('mouseout', function(){
+	    		$('#{{course.id}}_4').attr('checked', false);
+	    		for(var i=1; i<=4; i++){
+	    			$('.star' + i.toString() + '_{{course.id}}').css('color', 'black');
+	    		}
+	    	});
+
+	    	$('.star5_{{course.id}}').on('mouseover', function(){
+	    		$('#{{course.id}}_5').attr('checked', true);
+	    		for(var i=1; i<=5; i++){
+	    			$('.star' + i.toString() + '_{{course.id}}').css('color', 'yellow');
+	    		}
+	    	}).on('mouseout', function(){
+	    		$('#{{course.id}}_5').attr('checked', false);
+	    		for(var i=1; i<=5; i++){
+	    			$('.star' + i.toString() + '_{{course.id}}').css('color', 'black');
+	    		}
+	    	});
+
+
+	    	$('.star1_{{course.id}}, .star2_{{course.id}}, .star3_{{course.id}}, .star4_{{course.id}}, .star5_{{course.id}}').on('click', function(){
+	    		var dataToGo = $('input[type=radio]:checked').val();
+	    		console.log(dataToGo);
+	    		$.ajax({
+		            url: "{% url 'eLearning:ajax_rateCourse' %}",
+		            type: 'GET',
+		            data: dataToGo,
+		            success: function (data) {
+		            	console.log('rated');
+		            },
+		            cache: false,
+		            contentType: false,
+		            processData: false
+		        });
+	    	})
+	    </script>
+	  </div>
+	  <div class="card-body">
+	    <blockquote class="blockquote mb-0">
+	      <p> 
+	      	{{ course.series_title }} 
+	      	<div>
+	      		<a href="{% url 'eLearning:showTut' course.id %}"> <button class="btn btn-outline-primary">  Go to Course <i class="fa fa-angle-double-right"></i> </button> </a>
+	      	</div>
+	      </p>
+	      <footer class="blockquote-footer">Last updated on <cite title="Source Title"> {{ course.last_update }} </cite> by <i><b> {% if course.uploaded_by_club %} {{ course.uploaded_by_club }} {% else %} {{ course.uploaded_by_dept }} {% endif %} </b> </i></footer>
+	    </blockquote>
+	  </div>
+	</div>
+	{% endfor %}
+
+	{% else %}
+
+	<div class='display-4' style="text-align: center;">Sorry. No course Found !</div>
+
+	{% endif %}
+</div>
+
+<script>
+	$(".animated").addClass("delay-1s");
+  	AOS.init();
+</script>
+
+{% endblock %}

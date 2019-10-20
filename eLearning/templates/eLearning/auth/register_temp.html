@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://localhost:8000/register/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <title>IITG E-Learning</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"-->
+  <link rel="stylesheet" href="./IITG E-Learning_files/bootstrap.min.css">
+  <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script-->
+  <script src="./IITG E-Learning_files/jquery.min.js.download"></script>
+  <!--script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script-->
+  <script src="./IITG E-Learning_files/popper.min.js.download"></script>
+  <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script-->
+  <script src="./IITG E-Learning_files/bootstrap.min.js.download"></script>
+  <link rel="stylesheet" href="./IITG E-Learning_files/font-awesome.min.css">
+
+  <style>
+    body{
+      background-image: url("/static/images/background1.jpg");
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      transition: background 1s linear;
+    }
+    body:after{
+      width:100%;
+      content:'';
+      display:block;
+      position:absolute;
+      top:0;
+      left:0;
+      height:100%;
+      background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+      z-index: -1;
+    }
+    @media only screen and (max-width: 1000px) {
+      .display-3{
+        font-size: 40px;
+      }
+      .display-4{
+        font-size: 30px;
+      }
+    }
+    @media only screen and (max-width: 700px) {
+      .display-3{
+        font-size: 35px;
+      }
+      .display-4{
+        font-size: 25px;
+      }
+    }
+    @media only screen and (max-width: 500px) {
+      .display-3{
+        font-size: 30px;
+      }
+      .display-4{
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<style>
+  .myNav{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+</style>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light myNav">
+  <a class="navbar-brand" href="http://localhost:8000/register/#">Learn Smart</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="http://localhost:8000/"><i class="fa fa-home" aria-hidden="true"></i> Home </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="http://localhost:8000/register/"><i class="fa fa-home" aria-hidden="true"></i> Register </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:8000/login/"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      E Learning
+    </span>
+  </div>
+</nav>
+
+
+<style>
+	.card{
+		margin: 2%;
+		height: 100%;
+	}
+</style>
+
+<div class="row">
+
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="fromDivStudent">
+		<div class="card">
+  			<div class="card-header">
+    			Register as a Student
+  			</div>
+  			<div class="card-body" style="background-color:rgba(120,120,120);">
+  				<form method="post">
+  					<input type="hidden" name="csrfmiddlewaretoken" value="g1qEvhFLNQjuimOrLkRF4j0PVmTedbULga5udfPE7MNUelnvTgU2KRjUVYCTXZQm">
+	    			<p style="margin-left:30px;"><label for="id_name" style="padding-right:02%;">Name:</label> <input type="text" name="name" maxlength="255" required="" id="id_name" size="30"></p>
+<p style="margin-left:1.5px;"><label for="id_username" style="padding-right:1.7%;">Username:</label> <input type="text" name="username" maxlength="255" required="" id="id_username" size="30"></p>
+<p style="margin-left:32px;"><label for="id_email" style="padding-right:2.4%;">Email:</label> <input type="email" name="email" maxlength="255" required="" id="id_email" size="30"></p>
+<p style="margin-left:2px;"><label for="id_password" style="padding-right:2.5%;">Password:</label> <input type="password" name="password" maxlength="255" required="" id="id_password" size="30"></p>
+					<button class="btn btn-primary" name="student"> Register </button>
+				</form>
+  			</div>
+		</div>
+	</div>
+
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" id="fromDivClub">
+		<div class="card">
+  			<div class="card-header">
+    			Register a Club
+  			</div>
+  			<div class="card-body" style="background-color:rgba(120,120,120);">
+  				<form method="post">
+  					<input type="hidden" name="csrfmiddlewaretoken" value="g1qEvhFLNQjuimOrLkRF4j0PVmTedbULga5udfPE7MNUelnvTgU2KRjUVYCTXZQm">
+	    			<p style="margin-left:30px;"><label for="id_name" style="padding-right:02%;">Name:</label> <input type="text" name="name" maxlength="255" required="" id="id_name" size="30"></p>
+<p style="margin-left:1px;"><label for="id_username" style="padding-right:1.8%;">Username:</label> <input type="text" name="username" maxlength="255" required="" id="id_username" size="30"></p>
+<p style="margin-left:4.5px;"><label for="id_password" style="padding-right:2%">Password:</label> <input type="password" name="password" maxlength="255" required="" id="id_password" size="30"></p>
+					<button class="btn btn-primary" name="club"> Register </button>
+				</form>
+  			</div>
+		</div>
+	</div>
+
+</div>
+
+
+</body></html>

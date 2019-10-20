@@ -1,0 +1,79 @@
+{% extends 'baseDepartment.html' %}
+
+{% block body %}
+
+<style>
+	.myForm{
+		border: 2px solid rgb(120, 120, 120);
+		border-radius: 10px;
+		padding: 2%;
+	}
+	.custom-file{
+		margin: 1%;
+	}
+</style>
+
+<div class="jumbotron">
+  <h1 class="display-4">Edit {{ tut.series_title }}</h1>
+</div>
+
+<div class="container">
+	<form method="post" enctype="multipart/form-data" class='myForm'>
+
+		{% csrf_token %}
+
+		
+		<div class="form-group">
+	      <label for="id_title"> Video Title :</label>
+	      <input type="text" class="form-control" id="id_title" name="title" placeholder="Video title ...">
+	    </div>
+
+	    <div class="form-group">
+	      <label for="id_met_title"> Material Title :</label>
+	      <input type="text" class="form-control" id="id_met_title" name="met_title" placeholder="Material title ...">
+	    </div>
+
+	    <div class="custom-file">
+			<input type="file" id="id_met" name='met'>
+			<label class="custom-file-label" for="id_met">Upload Material</label>
+		</div>
+		
+
+	    <div class="custom-file">
+			<input type="file" id="id_video" accept="video/*" name='video'>
+			<label class="custom-file-label" for="id_video">Upload Video</label>
+		</div>
+
+		<div class="form-group">
+	      <label for="id_video_link"> Add Video Link : </label>
+	      <input type="text" class="form-control" id="id_video_link" name="video_link" placeholder="Video link ...">
+	    </div>
+
+	    <div class="form-group">
+	      <label for="id_video_tags"> Add Video Tags : <i>(Tags should be seperated by space only)</i> </label>
+	      <input type="text" class="form-control" id="id_video_tags" name="video_tags" placeholder="Video tags ...">
+	    </div>
+
+	    <div class="form-group">
+	      <label for="id_material_tags"> Add Material Tags : <i>(Tags should be seperated by space only)</i> </label>
+	      <input type="text" class="form-control" id="id_material_tags" name="material_tags" placeholder="Material tags ...">
+	    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+
+
+
+	  <!-- <div class="row">
+	    <div class="col">
+	    	<label for="id_series_title">Series Title</label>
+	    	<input type="text" class="form-control" value="{{ tut.series_title }}">
+	    </div>
+	  </div>
+	  <div class="custom-file">
+			<input type="file" id="id_video" accept="video/*" name='video'>
+			<label class="custom-file-label" for="id_video">Choose file</label>
+		</div> -->
+</div>
+
+{% endblock %}

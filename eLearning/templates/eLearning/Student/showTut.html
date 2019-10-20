@@ -1,0 +1,201 @@
+{% extends 'baseStudent.html' %}
+
+{% block body %}
+
+<style>
+	.container{
+		margin: 2%;
+	}
+
+span{
+	float: right;
+}
+	@media screen and (max-width: 430px)
+	{
+		.vid{
+			display: block;
+			width: 100%;
+			height: 500px;
+		}
+		.video-menu{
+			background-color: #4D7AF7; color: white;
+		}
+		.material-menu{
+			background-color: #4D7AF7; color: white;
+		}
+
+	}
+
+	@media screen and (min-width: 431px)
+	{
+		.vid{
+			display: inline-block;
+			width: 100%;
+			height: 500px;
+		}
+		.video-menu{
+			background-color: #4D7AF7; color: white;
+		}
+		.material-menu{
+			background-color: #4D7AF7; color: white;
+		}
+}
+	@media screen and (min-width: 768px)
+	{
+				.plus1{
+					display: none;
+				}
+
+				.minus1{
+					display: none;
+				}
+
+				.plus2{
+					display: none;
+				}
+
+				.minus2{
+					display: none;
+				}
+
+				.video-drop{
+					display:block;
+				}
+
+				.material-drop{
+					display:block;
+				}
+	}
+
+	@media screen and (max-width: 767px)
+	{
+				.plus1{
+					display: inline;
+				}
+				.minus1{
+					display: none;
+				}
+				.plus2{
+					display: inline;
+				}
+				.minus2{
+					display: none;
+				}
+				.video-menu:hover{
+					background-color: blue; color: white;
+					}
+				.material-menu:hover{
+					background-color: blue; color: white;
+				}
+				.video-drop{
+					display:none;
+				}
+				.material-drop{
+					display:none;
+				}
+	}
+</style>
+<div class="container">
+	<div class="row">
+		<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+			<a class="video-menu nav-link" href="#"> Videos      <span class='fa fa-plus plus1'  style='color: white;'></span>  <span class='fa fa-minus minus1'  style='color: white;'></span></a>
+			<nav class="navbar bg-light video-drop">
+			  <ul class="navbar-nav">
+			  	{% for item in tut.videos.all %}
+			    <li class="nav-item">
+			      <a class="nav-link t_vid{{forloop.counter}}" href="{% url 'eLearning:showTut' tut.id %}?paramvideo={{item.id}}"> {{ item.title }} </a>
+			    </li>
+			    
+			    {% endfor %}
+				</ul>
+			</nav>
+			<a class="material-menu nav-link" href="#"> Materials   <span class='fa fa-plus plus2'  style='color: white;'>  <span class='fa fa-minus minus2'  style='color: white;'></span></a>
+			<nav class="navbar bg-light material-drop">
+			  <ul class="navbar-nav">
+
+			    {% for item in tut.materials.all %}
+			    <li class="nav-item">
+			      <a class="nav-link t_met{{forloop.counter}}" href="{% url 'eLearning:showTut' tut.id %}?paramMet={{item.id}}"> {{ item.name }} </a>
+			    </li>
+			    {% endfor %}
+			  </ul>
+			</nav>
+		</div>
+		<div class='col-lg-9 col-md-9 col-sm-12 col-xs-12'>
+			{% if vid %}
+			<div>
+				{% if isvideo %}
+				<iframe class="vid" width="1000" height="600" src="{{ vid.video.url }}"></iframe>
+				{% else %}
+				<iframe class="vid" width="1000" height="600" src="{{ vid.link }}" id="toShow"></iframe>
+				<script>
+					var url= ("{{ vid.link }}").replace('watch?v=','embed/');
+					$('#toShow').attr('src', url);
+				</script>
+				{% endif %}
+			</div>
+			<script>
+				//if(window.innerWidth <= 767){
+					var n1 = 0;
+				 	$('.video-menu').on('click',function(){
+							if(n1%2==0)
+							{
+								$('.video-drop').css('display','block');
+								$('.minus1').css('display','inline');
+								$('.plus1').css('display','none');
+								n1 = n1+1;
+							}
+
+							else
+								{
+									$('.video-drop').css('display','none');
+									$('.minus1').css('display','none');
+									$('.plus1').css('display','inline');
+									n1 = n1+1;
+								}
+							});
+
+							var n2=0;
+				$('.material-menu').on('click',function(){
+					if(n2%2==0)
+					{
+					$('.material-drop').css('display','block');
+					$('.plus2').css('display','none');
+					$('.minus2').css('display','inline');
+					n2=n2+1;
+				}
+
+				else
+				{
+				$('.material-drop').css('display','none');
+				$('.plus2').css('display','inline');
+				$('.minus2').css('display','none');
+				n2 = n2+1;
+			}
+			})
+			//}
+
+			</script>
+
+			{% else %}
+				<iframe width="420" height="315" src="{{ met.met.url }}" style="background-color: white; width: 100%; height: 100%;"></iframe>
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+
+{% if whatToClick %}
+	{% if whatToClick == "Video" %}
+		<script>
+			$('.t_vid1')[0].click();
+		</script>
+
+	{% elif whatToClick == "Met" %}
+		<script>
+			console.log("met");
+			$('.t_met1')[0].click();
+		</script>
+	{% endif %}
+{% endif %}
+{% endblock %}

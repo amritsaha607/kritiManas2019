@@ -1,0 +1,488 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<style>
+
+body{
+	margin:5px;
+}
+
+
+.myContainer > *{
+	position: relative;
+}
+
+@media screen and (min-width: 576px) {
+	.myContainer{
+		margin: auto;
+		padding: 20%;
+		height: 100%;
+		position: relative;
+		min-height: 100%
+	}
+
+	.box{
+		display:none;
+	}
+	.balls {
+		width: 100px;
+		border-radius: 50%;
+		height: 100px;
+		background-color: aliceblue;
+		position: absolute;
+		opacity: 0.8;
+		background: radial-gradient(circle at 100px 100px, #5cabff, #000);
+		cursor: pointer;
+		text-align: center;
+		transition: all 1s;
+	}
+
+	.ball1:hover, .ball2:hover, .ball3:hover{
+		opacity: 1;
+		z-index: 1;
+		height: 150px;
+		width: 150px;
+		transition: all 1s;
+		text-align: center;
+		-webkit-animation-play-state: paused;
+			-moz-animation-play-state: paused;
+			-o-animation-play-state: paused;
+			animation-play-state: paused;
+	}
+
+	.ball1{
+		animation: spin1 5s infinite;
+		text-align: center;
+		display: 100%;
+	}
+
+	.ball2{
+		animation: spin2 5s infinite;
+	}
+
+	.ball3{
+		animation: spin3 5s infinite;
+	}
+
+	@keyframes spin1{
+		0%{
+			transform: rotate(0deg) translate(100%) rotate(0deg);
+		}
+		100%{
+			transform: rotate(360deg) translate(100%) rotate(-360deg);
+		}
+	}
+	@keyframes spin2{
+		0%{
+			transform: rotate(120deg) translate(100%) rotate(-120deg);
+		}
+		100%{
+			transform: rotate(480deg) translate(100%) rotate(-480deg);
+		}
+	}
+	@keyframes spin3{
+		0%{
+			transform: rotate(240deg) translate(100%) rotate(-240deg);
+		}
+		100%{
+			transform: rotate(600deg) translate(100%) rotate(-600deg);
+		}
+	}
+
+	#ballText1, #ballText2, #ballText3{
+		text-align: center;
+		color: white;
+		font-size: 15px;
+		position: relative;
+		top: 30px;
+		max-width: 60%;
+		margin: auto;
+		padding: 10px;
+	}
+}
+	.card{
+		height: 100%;
+	}
+
+	.card-1{
+		display: block;
+	}
+
+	.card-2{
+		display: none;
+	}
+
+	.card-3{
+		display: none;
+	}
+
+@media screen and (max-width: 575px) {
+			.balls{
+				display: none;
+			}
+			.box{
+				display: inline-block;
+				width: 30%;
+				background-color: aliceblue;
+				background: radial-gradient(circle at 100px 100px, #5cabff, #000);
+				height: 90%;
+				color:white;
+				text-align: center;
+      }
+}
+
+#formDivStudent{
+	margin: 2%;
+	transition: ALL 0.5s;
+	background-color: rgba(120, 120, 120, 0.2); 
+}
+#formDivStudent:hover{
+	background-color: rgba(120, 120, 120, 0.5);
+	transition: all 0.5s;
+}
+
+
+
+	input{
+        width: 50%;
+        background-color: rgba(255, 255, 255, 0.0);
+        border: 0px;
+        border-bottom: 0.3px solid white;
+        outline: none;
+        transition: width 0.3s;
+    }
+    input:focus{
+        width: 60%;
+        transition: width 0.3s;
+    }
+    label{
+        text-align: center;
+        width: 30%;
+    }
+    
+    label{
+        color: white;
+    }
+
+	</style>
+
+
+
+
+
+
+<!-- form style -->
+<style>
+    .form-box{
+        position: relative;
+        padding: 2%;
+        margin: 1%;
+        width: 90%;
+        left: 5%;
+        background-color: rgba(120, 120 ,120, 0.5);
+        border: 0.2px solid aliceblue;
+        transition: all 0.3s;
+        border-radius: 5% 5%;
+    }
+    @media only screen and (max-width: 800px){
+        .form-box{
+            width: 90%;
+            left: 5%;
+            right: 5%;
+            transition: all 0.3s;
+        }
+        label{
+        	font-size: 15px;
+        }
+    }
+    .form-box:hover{
+        box-shadow: 5px 5px 8px rgba(120 ,120, 120, 0.5);
+    }
+    
+    .headerLogin{
+        font-family: 'Century Gothic';
+        text-align: center;
+        color: aliceblue;
+        font-size: 50px;
+    }
+</style>
+
+
+
+
+
+
+<div class="row overall">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 myContainer" id='animatedLoginChoice'>
+	  			<div class='balls ball1'><span id='ballText1'> Student </span></div>
+	  			<div class='balls ball2'><span id='ballText2'> Club </span></div>
+	  			<div class='balls ball3'><span id='ballText3'> Department </span></div>
+
+				<div class='box box1 btn'><span id='boxText1'>Student</span></div>
+				<div class='box box2 btn'><span id="boxText2">Club</span></div>
+				<div class='box box3 btn'><span id="boxText3">Department</span></div>
+	</div>
+
+	<div class='col-lg-6 col-md-6 col-sm-6 col-xs-12 division2'>
+		<!--div class="card card-1" id='formDivStudent'>
+  			<div class="card-header">
+    			Login as a Student
+  			</div>
+  			<div class="card-body">
+  				<form method='post'>
+  					{% csrf_token %}
+	    			{{ formStudent.as_p }}
+					<button class='btn btn-primary' name='student'> Login </button>
+				</form>
+  			</div>
+		</div-->
+		<div class='form-box card-1' id="formDivStudent">
+		    <h3 class='headerLogin'>Login (Student)</h3>
+		    <hr class="my-4">
+		    <form method='post'>
+		        {% csrf_token %}
+		        <div style='text-align: left; font-size: 20px; padding: 2%;'>
+		            {{ formStudent.as_p }}
+		        </div>
+		        <button class='btn btn-primary' style="position: relative; left: 40%; width: 20%;" onclick="showLoaderCondition()" name="student">Login</button>
+		        <hr class="my-4">
+		        <div style="text-align: center; color: aliceblue;">Don't have an account? <a href="{% url 'eLearning:register' %}">Click here</a> to register</div>
+		    </form>
+		    <script>
+		        function showLoaderCondition(){
+		            if($('#id_username').val()!="" && $('#id_password').val()!=""){
+		                showLoader();
+		            }
+		        }
+		    </script>
+		</div>
+
+
+		<div class='form-box card-2' id="formDivClub">
+		    <h3 class='headerLogin'>Login (Club)</h3>
+		    <hr class="my-4">
+		    <form method='post'>
+		        {% csrf_token %}
+		        <div style='text-align: left; font-size: 20px; padding: 2%;'>
+		            {{ formClub.as_p }}
+		        </div>
+		        <button class='btn btn-primary' style="position: relative; left: 40%; width: 20%;" onclick="showLoaderCondition()" name="club">Login</button>
+		        <hr class="my-4">
+		        <div style="text-align: center; color: aliceblue;">Don't have an account? <a href="{% url 'eLearning:register' %}">Click here</a> to register</div>
+		    </form>
+		    <script>
+		        function showLoaderCondition(){
+		            if($('#id_username').val()!="" && $('#id_password').val()!=""){
+		                showLoader();
+		            }
+		        }
+		    </script>
+		</div>
+
+		<div class='form-box card-3' id="formDivDept">
+		    <h3 class='headerLogin'>Login (Dept)</h3>
+		    <hr class="my-4">
+		    <form method='post'>
+		        {% csrf_token %}
+		        <div style='text-align: left; font-size: 20px; padding: 2%;'>
+		            {{ formDepartment.as_p }}
+		        </div>
+		        <button class='btn btn-primary' style="position: relative; left: 40%; width: 20%;" onclick="showLoaderCondition()" name="dept">Login</button>
+		        <hr class="my-4">
+		        <div style="text-align: center; color: aliceblue;">Don't have an account? <a href="{% url 'eLearning:register' %}">Click here</a> to register</div>
+		    </form>
+		    <script>
+		        function showLoaderCondition(){
+		            if($('#id_username').val()!="" && $('#id_password').val()!=""){
+		                showLoader();
+		            }
+		        }
+		    </script>
+		</div>
+
+
+
+
+		<!--div class="card card-2" id='formDivClub'>
+  			<div class="card-header">
+    			Login as a Club
+  			</div>
+  			<div class="card-body">
+  				<form method='post'>
+  					{% csrf_token %}
+	    			{{ formClub.as_p }}
+					<button class='btn btn-primary' name='club'> Login </button>
+				</form>
+  			</div>
+		</div>
+		<div class="card card-3" id='formDivDept'>
+  			<div class="card-header">
+    			Login as a Department
+  			</div>
+  			<div class="card-body">
+  				<form method='post'>
+  					{% csrf_token %}
+	    			{{ formDepartment.as_p }}
+					<button class='btn btn-primary' name='dept'> Login </button>
+				</form>
+  			</div>
+		</div-->
+	</div>
+</div>
+
+	<script>
+			$('.ball1').on('mouseover', function(){
+			  $('#ballText1').css('font-size', '20px').css('transition', 'all 0.5s');
+			}).on('mouseout', function(){
+			  $('#ballText1').css('font-size', '15px').css('transition', 'all 0.5s');
+			});
+
+			$('.box1').on('mouseover', function(){
+			  $('#boxText1').css('font-size', '20px').css('transition', 'all 0.5s');
+			}).on('mouseout', function(){
+			  $('#boxText1').css('font-size', '15px').css('transition', 'all 0.5s');
+			});
+
+			var curr_show = $('#formDivStudent');
+			$('.ball1').on('mouseover', function(){
+				$('#formDivStudent').css('display', 'block');
+				$('#formDivClub').css('display', 'none');
+				$('#formDivDept').css('display', 'none');
+			}).on('mouseout', function(){
+				$('#formDivStudent').css('display', 'none');
+				$('#formDivClub').css('display', 'none');
+				$('#formDivDept').css('display', 'none');
+				curr_show.css('display', 'block');
+			});
+
+		$('.ball2').on('mouseover', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'block');
+			$('#formDivDept').css('display', 'none');
+		}).on('mouseout', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'none');
+			curr_show.css('display', 'block');
+		})
+
+		$('.ball3').on('mouseover', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'block');
+		}).on('mouseout', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'none');
+			curr_show.css('display', 'block');
+		})
+
+		$('.ball1').on('click', function(){
+			$('#formDivStudent').css('display', 'block');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'none');
+			curr_show = $('#formDivStudent');
+		});
+		$('.ball2').on('click', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'block');
+			$('#formDivDept').css('display', 'none');
+			curr_show = $('#formDivClub');
+		});
+		$('.ball3').on('click', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'block');
+			curr_show = $('#formDivDept');
+		});
+
+		var curr_show = $('#formDivStudent');
+		$('.box1').on('mouseover', function(){
+			$('#formDivStudent').css('display', 'block');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'none');
+		}).on('mouseout', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'none');
+			curr_show.css('display', 'block');
+		});
+
+		$('.box2').on('mouseover', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'block');
+			$('#formDivDept').css('display', 'none');
+		}).on('mouseout', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'none');
+			curr_show.css('display', 'block');
+		})
+
+		$('.box3').on('mouseover', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'block');
+		}).on('mouseout', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'none');
+			curr_show.css('display', 'block');
+		})
+
+		$('.box1').on('click', function(){
+			$('#formDivStudent').css('display', 'block');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'none');
+			curr_show = $('#formDivStudent');
+		});
+		$('.box2').on('click', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'block');
+			$('#formDivDept').css('display', 'none');
+			curr_show = $('#formDivClub');
+		});
+		$('.box3').on('click', function(){
+			$('#formDivStudent').css('display', 'none');
+			$('#formDivClub').css('display', 'none');
+			$('#formDivDept').css('display', 'block');
+			curr_show = $('#formDivDept');
+		});
+
+
+	</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

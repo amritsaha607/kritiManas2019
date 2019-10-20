@@ -1,0 +1,200 @@
+{% extends extendTemplate %}
+
+{% block body %}
+
+{% load static %}
+
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+
+<style>
+	.textWhite{
+		color: white;
+	}
+	/*.buttonsEnd{
+		margin: 0 10% 0 10%;
+	}*/
+	.main-header{
+		margin: 10% 10% 5% 10%;
+	}
+	hr.my-4{
+		border: 0.5px solid white;
+	}
+	.buttons{
+		text-align: center;
+		margin: auto;
+	}
+	.my-btn{
+		min-width: 50%;
+		margin-bottom: 1%;
+		border-radius: 20px;
+		transition: all 0.5s;
+	}
+	@media screen and (max-width: 1080px)
+	{
+		.my-btn{
+			min-width: 70%;
+			transition: all 0.5s;
+		}
+	}
+	@media screen and (max-width: 650px)
+	{
+		.my-btn{
+			min-width: 80%;
+			transition: all 0.5s;
+		}
+	}
+	.myrow{
+		margin: 10% 10% 0 10%;
+	}
+	.panel-in{
+		padding: 5%;
+		border: 1px solid rgba(180, 180, 180, 0.8);
+		border-radius: 30px;
+		color: rgba(180, 180, 180, 0.8);
+		transition: all 0.5s;
+		margin: 1%;
+	}
+	.panel-in:hover{
+		color: rgba(210, 210, 210, 1.0);
+		border: 1px solid rgba(210, 210, 210, 1.0);
+		transition: all 0.5s;
+	}
+	.panel-image{
+		height: 200px;
+		width: 200px;
+		border-radius: 50%;
+		float: right;
+	}
+	.my-carousel{
+		//margin: auto;
+		//max-width: 500px;
+	}
+	.carousel-outer{
+		margin: auto;
+		margin-top: 2%;
+		border: 1px solid rgba(120, 120, 120, 0.9);
+		border-radius: 20px;
+		max-width: 800px;
+		text-align: center;
+	}
+	.single-video{
+		display: inline-block;
+		margin: 2%;
+	}
+</style>
+
+{% if extendTemplate == "base.html" %}
+
+
+<div>
+	<div class="main-header">
+		<h1 class="display-4 textWhite">Get Started with E-Learning</h1>
+		<hr class="my-4">
+		<p class="lead textWhite">
+			Build skills with courses, video lectures, & connecting with your friends from your university
+		</p>
+	</div>
+
+	<div class="buttons">
+		<a href="{% url 'eLearning:register' %}"><button class="btn btn-outline-success my-btn">Join Us</button></a>
+		<br>
+		<a href="{% url 'eLearning:login' %}"><button class="btn btn-outline-success my-btn">Login</button></a>
+		<!-- <div class="buttonsEnd"><hr class="my-4"></div> -->
+	</div>
+
+
+	
+	<div class="panels">
+		<div class="row myrow">
+			<div class="my-panel col-lg-6 col-md-6 col-sm-12 col-xs-12" data-aos="fade-right"  data-aos-anchor-placement="top-bottom">
+				<div class="panel-in">
+					<div><p class="lead display-4"> <img src="{% static 'images/home1.jpg' %}" class='panel-image'> Get Courses </p></div>
+					<div> <i>Get Video Lectures Uploaded by various Departments and Clubs of IITG </i></div>
+				</div>
+			</div>
+			<div class="my-panel col-lg-6 col-md-6 col-sm-12 col-xs-12" data-aos="fade-right"  data-aos-anchor-placement="top-bottom">
+				<div class="panel-in">
+					<div><p class="lead display-4"> <img src="{% static 'images/home3.jpg' %}" class='panel-image'> Explore, Learn & Grow    </p></div>
+					<div> <i>Delve into the activities of elegant clubs of the IITG fraternity.</i> </div>
+				</div>
+			</div>
+			<div class="my-panel col-lg-6 col-md-6 col-sm-12 col-xs-12" data-aos="fade-right"  data-aos-anchor-placement="top-bottom">
+				<div class="panel-in">
+					<div><p class="lead display-4"> <img src="{% static 'images/home4.png' %}" class='panel-image'> Connect Students  </p></div>
+					<div> <i>Train to become a <b>Jedi Master</b> by interacting with your fellow Padawans.</i> </div>
+				</div>
+			</div>
+			<div class="my-panel col-lg-6 col-md-6 col-sm-12 col-xs-12" data-aos="fade-right"  data-aos-anchor-placement="top-bottom">
+				<div class="panel-in">
+					<div><p class="lead display-4"> <img src="{% static 'images/home5.jpg' %}" class='panel-image'> Become a Bibliophile </p></div>
+					<div> <i>Get to read relevant books & articles popular among the IITG residents.</i> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+{% elif extendTemplate == "baseStudent.html" %}
+
+<div id="demo" class="carousel slide carousel-outer" data-ride="carousel">
+
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+  
+  <!-- The slideshow -->
+  <div class="alert alert-danger" style="border-radius: 20px; border:2px solid black; color: white; background-color: rgb(120, 120, 120);"> Recently Updated Video Lectures </div>
+  <div class="carousel-inner my-carousel">
+  	{% for videopair in videosToShow %}
+    <div class="carousel-item item{{forloop.counter}}">
+    	{% for video in videopair %}
+	    	<div class="single-video">
+	    	{% if video.video %}
+	    		<iframe width="100%" height="180px" src="{{ video.video.url }}"></iframe>
+	    	{% else %}
+	    		<iframe width="100%" height="180px" src="{{ video.link }}" id="id_{{ video.id }}"></iframe>
+	    		<script>
+	    			var url = ("{{video.link}}").replace('watch?v=','embed/');
+	    			$('#id_{{video.id}}').attr('src', url);
+	    		</script>
+	    	{% endif %}
+	    	</div>
+    	{% endfor %}
+    	
+       <!--img src="{% static 'images/home1.jpg' %}" alt="Los Angeles" width="1100" height="500"--> 
+    </div>
+    {% endfor %}
+
+    <script>
+    	$(".item1").addClass("active");
+    </script>
+    <!-- <div class="carousel-item">
+      <img src="{% static 'images/home1.jpg' %}" alt="Chicago" width="1100" height="500">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'images/home1.jpg' %}" alt="New York" width="1100" height="500">
+    </div> -->
+  </div>
+  
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+{% endif %}
+
+<script>
+	AOS.init();
+</script>
+
+{% endblock %}
