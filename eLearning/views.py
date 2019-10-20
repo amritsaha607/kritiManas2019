@@ -162,27 +162,24 @@ def viewCourse(request, tut_id):
 	tut = CourseTutorial.objects.get(id=tut_id)
 
 	if request.method=='GET':
-		if 'paramvideo' in request.GET:
-			video_id = int(request.GET['paramvideo'])
+		if 'paramvid' in request.GET:
+			video_id = int(request.GET['paramvid'])
 			vid = Video.objects.get(id=video_id)
 			isvideo = True
 			if not vid.link=="":
 				isvideo = False
-			return render(request, 'eLearning/Student/showTut.html', {'tut': tut, 'vid': vid, 'isvideo': isvideo})
+			return render(request, 'eLearning/club/viewCourse.html', {'tut': tut, 'vid': vid, 'isvideo': isvideo})
 		if 'paramMet' in request.GET:
 			met_id = int(request.GET['paramMet'])
 			met = Material.objects.get(id=met_id)
-			return render(request, 'eLearning/Student/showTut.html', {'tut': tut, 'met_id': met_id, 'met': met})
+			return render(request, 'eLearning/club/viewCourse.html', {'tut': tut, 'met_id': met_id, 'met': met})
 		else:
-			print('\n\n\n\n\n')
-			print(tut.videos.all().count())
-			print('\n\n\n\n\n')
 			whatToClick = None
 			if not tut.videos.all().count()==0:
 				whatToClick = "Video"
 			elif not tut.materials.all().count()==0:
 				whatToClick = "Met"
-			return render(request, 'eLearning/Student/showTut.html', {'tut': tut, 'whatToClick': whatToClick})
+			return render(request, 'eLearning/club/viewCourse.html', {'tut': tut, 'whatToClick': whatToClick})
 
 	return render(request, 'eLearning/club/viewCourse.html', {'tut': tut, 'club': club})
 

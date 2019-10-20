@@ -1,4 +1,4 @@
-{% extends 'baseStudent.html' %}
+{% extends 'baseClub.html' %}
 
 {% block body %}
 
@@ -103,7 +103,7 @@ span{
 			  <ul class="navbar-nav">
 			  	{% for item in tut.videos.all %}
 			    <li class="nav-item">
-			      <a class="nav-link t_vid{{forloop.counter}}" href="{% url 'eLearning:viewCourse' tut.id %}?paramvideo={{item.id}}"> {{ item.title }} </a>
+			      <a class="nav-link t_vid{{forloop.counter}}" href="{% url 'eLearning:viewCourse' tut.id %}?paramvid={{item.id}}"> {{ item.title }} </a>
 			    </li>
 			    
 			    {% endfor %}
@@ -188,6 +188,7 @@ span{
 {% if whatToClick %}
 	{% if whatToClick == "Video" %}
 		<script>
+			console.log('eugwfuehw');
 			$('.t_vid1')[0].click();
 		</script>
 
