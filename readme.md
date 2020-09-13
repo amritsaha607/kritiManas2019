@@ -38,6 +38,8 @@ Club : username - "4i Lab", password - "4i Lab" <br/>
 Department : username - "cse", password - "cse" <br/>
 
 ## Demo (Student walkthrough)
-<figure class="video_container">
-  <iframe src="https://1drv.ms/v/s!AjGurYxC7HkJhT-Zr8-SKqMGPOW0?e=APaac2" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+<!-- <iframe src="demo/student_walkthrough.mp4" /> -->
+<!-- ![](demo/student_walkthrough.mp4) -->
+<video width="320" height="240" controls>
+  <source src="demo/student_walkthrough.mp4" type="video/mp4">
+</video>
