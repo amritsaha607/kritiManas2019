@@ -39,7 +39,4 @@ Department : username - "cse", password - "cse" <br/>
 
 ## Demo (Student walkthrough)
 <!-- <iframe src="demo/student_walkthrough.mp4" /> -->
-<!-- ![](demo/student_walkthrough.mp4) -->
-<video width="320" height="240" controls>
-  <source src="demo/student_walkthrough.mp4" type="video/mp4">
-</video>
+![](https://github.com/amritsaha607/kritiManas2019/blob/master/demo/student_walkthrough.gif)
