@@ -1,3 +1,8 @@
+## Demo (Student walkthrough)
+
+![Student Walkthrough](https://github.com/amritsaha607/kritiManas2019/raw/master/demo/student-walkthrough.gif)
+
+
 ### This portal is made for three different types of users.
 1. Student
 2. Club
@@ -36,7 +41,3 @@ Login through your newly created admin account credentials and you can access th
 Student : username - "s1", password - "s1" <br/>
 Club : username - "4i Lab", password - "4i Lab" <br/>
 Department : username - "cse", password - "cse" <br/>
-
-## Demo (Student walkthrough)
-
-![Student Walkthrough](https://github.com/amritsaha607/kritiManas2019/raw/master/demo/student-walkthrough.gif)
