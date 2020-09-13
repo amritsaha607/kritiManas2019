@@ -38,5 +38,5 @@ Club : username - "4i Lab", password - "4i Lab" <br/>
 Department : username - "cse", password - "cse" <br/>
 
 ## Demo (Student walkthrough)
-<!-- <iframe src="demo/student_walkthrough.mp4" /> -->
-![](https://github.com/amritsaha607/kritiManas2019/blob/master/demo/student_walkthrough.gif)
+
+![Student Walkthrough](https://github.com/amritsaha607/kritiManas2019/raw/master/demo/student-walkthrough.gif)
