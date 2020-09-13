@@ -199,7 +199,7 @@
 
 	<div class='col-lg-2 col-md-3 col-sm-4 col-xs-12'>
 	<select name='sem'>
-		<option value=""> ---- </option>
+		<option value=""> Filter Semester </option>
 		{% for sem in all_sems %}
 		<option value="{{ sem.id }}"> Semester {{ sem.sem }} </option>
 		{% endfor %}
@@ -208,7 +208,7 @@
 
 	<div class='col-lg-2 col-md-3 col-sm-4 col-xs-12'>
 	<select name='dept'>
-		<option value=""> ---- </option>
+		<option value=""> Filter Department </option>
 		{% for dept in all_depts %}
 		<option value="{{ dept.id }}"> {{ dept.short_name }} </option>
 		{% endfor %}
@@ -217,7 +217,7 @@
 
 	<div class='col-lg-2 col-md-3 col-sm-4 col-xs-12'>
 	<select name='course'>
-		<option value=""> ---- </option>
+		<option value=""> Filter Course </option>
 		{% for course in all_courses %}
 		<option value="{{ course.id }}"> {{ course.code }} </option>
 		{% endfor %}
@@ -226,7 +226,7 @@
 
 	<div class='col-lg-2 col-md-3 col-sm-4 col-xs-12'>
 	<select name='doctype'>
-		<option value=""> ---- </option>
+		<option value=""> Filter Material </option>
 		{% for type in all_types %}
 		<option value="{{ type.id }}"> {{ type.docType }} </option>
 		{% endfor %}
